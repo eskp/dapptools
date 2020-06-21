@@ -6,6 +6,7 @@ stdenv.mkDerivation rec {
   version = "0.9.0";
   src = ./.;
 
+  buildInputs = [ nodejs ];
   nativeBuildInputs = [makeWrapper shellcheck];
   dontBuild = true;
   doCheck = true;
@@ -24,6 +25,10 @@ stdenv.mkDerivation rec {
         ${lib.optionalString (glibcLocales != null) ''
           --set LOCALE_ARCHIVE ${glibcLocales}/lib/locale/locale-archive
       ''}
+  '';
+
+  postFixup = ''
+    patchShebangs $out/libexec/seth
   '';
 
   meta = {
