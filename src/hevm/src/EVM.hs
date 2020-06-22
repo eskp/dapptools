@@ -21,7 +21,7 @@ import EVM.ABI
 import EVM.Types
 import EVM.Solidity
 import EVM.Keccak
-import EVM.Concrete hiding ((^))
+import EVM.Concrete
 import EVM.Symbolic
 import EVM.Op
 import EVM.FeeSchedule (FeeSchedule (..))
@@ -1517,7 +1517,7 @@ writeStorage (S _ loc) (S _ val) (Symbolic s) = Symbolic (writeArray s loc val)
 writeStorage loc val (Concrete s) = Concrete (Map.insert (forceLit loc) (forceLit val) s)
 
 accessStorage
-  :: Addr                  -- ^ Contract address
+  :: Addr                -- ^ Contract address
   -> SymWord             -- ^ Storage slot key
   -> (SymWord -> EVM ()) -- ^ Continuation
   -> EVM ()
